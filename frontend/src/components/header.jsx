@@ -13,6 +13,8 @@ Header.propTypes  = {
 }
 
 function Header({selectedUsers, showModal, handleLogout}) {
+    const API = import.meta.env.VITE_API_URL;
+
     const token = localStorage.getItem('token')
     const user = JSON.parse(localStorage.getItem('user'))
     const queryClient = useQueryClient();
@@ -21,7 +23,7 @@ function Header({selectedUsers, showModal, handleLogout}) {
    const blockUsers = useMutation({
         mutationFn: async () => {
             if(selectedUsers.includes(user.id)) showModal('block')
-            else {await axios.post('http://localhost:5000/api/users/update', { ids: selectedUsers, action: 'block'}, {
+            else {await axios.post(`${API}/api/users/update`, { ids: selectedUsers, action: 'block'}, {
                 headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
             })}
         },
@@ -31,7 +33,7 @@ function Header({selectedUsers, showModal, handleLogout}) {
     // ==================== UNBLOCK USERS =====================
    const unBlockUsers = useMutation({
         mutationFn: async () => {
-            await axios.post('http://localhost:5000/api/users/update', {ids: selectedUsers, action: 'unblock'}, {
+            await axios.post(`${API}/api/users/update`, {ids: selectedUsers, action: 'unblock'}, {
                 headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
             });
         },
@@ -42,7 +44,7 @@ function Header({selectedUsers, showModal, handleLogout}) {
    const deleteUsers = useMutation({
        mutationFn: async () => {
             if(selectedUsers.includes(user.id)) showModal('delete')
-            else {await axios.post('http://localhost:5000/api/users/update', { ids: selectedUsers,action: 'delete'}, {
+            else {await axios.post(`${API}/api/users/update`, { ids: selectedUsers,action: 'delete'}, {
                 headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'}
             })}
         },

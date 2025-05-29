@@ -8,6 +8,8 @@ import ModalCompopnent from "./modal";
 import Header from "./header";
 
 function Dashboard() {
+    const API = import.meta.env.VITE_API_URL;
+
     const [selectAll, setSelectAll] = useState(false)
     const [selectedUsers, setSelectedUsers] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +53,7 @@ function Dashboard() {
     //===================== get All users =========================
     async function getUsers() {
         try {
-            const res = await axios.get('http://localhost:5000/api/users', { headers: {'Content-Type': 'application/json',Authorization: `Bearer ${token}`},})
+            const res = await axios.get(`${API}/api/users`, { headers: {'Content-Type': 'application/json',Authorization: `Bearer ${token}`},})
             const allProducts =  res.data;
             const searchEd = allProducts.filter((user) =>  user.name.toLowerCase().includes(search.toLowerCase()) );
             if(filter == 'name') return searchEd.sort((a, b) => a.name.localeCompare(b.name))

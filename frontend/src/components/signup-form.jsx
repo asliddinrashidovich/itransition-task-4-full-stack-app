@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { Checkbox } from "antd";
 
 function SignUpForm() {
+    const API = import.meta.env.VITE_API_URL;
+
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -16,7 +18,7 @@ function SignUpForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', {email, name, password});
+            const res = await axios.post(`${API}/api/auth/register`, {email, name, password});
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
             navigate('/dashboard')
