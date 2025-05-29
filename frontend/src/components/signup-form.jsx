@@ -1,4 +1,4 @@
-import { FaRegEye } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 import axios from 'axios'
 import { useState } from "react";
@@ -10,6 +10,7 @@ function SignUpForm() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState("password")
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -31,7 +32,7 @@ function SignUpForm() {
         <div className="max-w-[400px] mx-auto">
             <form onSubmit={handleSubmit}>
                 <p className="text-[15px] text-[#888]">Start your journey</p>
-                <h2 className="text-[30px] font-[600] text-[#222] mb-[60px] leading-[70%]">Sign Up to The App</h2>
+                <h2 className="text-[30px] font-[600] text-[#222] mb-[60px] leading-[100%]">Sign Up to The App</h2>
                 <label htmlFor="name" className="border-[1px] inline-block border-[#888] rounded-[5px] p-[7px] w-full mb-[30px]">
                     <span className="leading-[100%] block text-[14px] text-[#888]">Name</span>
                     <input required value={name} onChange={(e) => setName(e.target.value)} id="name" type="text" className="w-[80%] text-[#222] outline-none" placeholder="asliddin"/>
@@ -48,10 +49,11 @@ function SignUpForm() {
                 <label htmlFor="password" className="border-[1px] border-[#888] rounded-[5px] p-[7px] w-full flex items-center justify-between  mb-[20px]">
                     <div>
                         <span className="leading-[100%] block text-[14px] text-[#888]">Password</span>
-                        <input required value={password} onChange={(e) => setPassword(e.target.value)}  id="password" type="password" className="w-[150%] text-[#222] outline-none" placeholder="password"/>
+                        <input required value={password} onChange={(e) => setPassword(e.target.value)}  id="password" type={showPassword} className="w-[150%] text-[#222] outline-none" placeholder="password"/>
                     </div>
                     <div className="cursor-pointer mr-[10px]" type="button">
-                        <FaRegEye className="text-[#888] text-[20px]" />
+                        {showPassword == 'password' && <FaRegEye onClick={() => setShowPassword('text')} className="text-[#888] text-[20px]" />}
+                        {showPassword == 'text' && <FaRegEyeSlash onClick={() => setShowPassword('password')} className="text-[#888] text-[20px]" />}
                     </div>
                 </label>
                 <label htmlFor="remember" className="cursor-pointer flex gap-[7px] items-center mb-[10px]">

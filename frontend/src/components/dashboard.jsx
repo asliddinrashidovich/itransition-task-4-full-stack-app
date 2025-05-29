@@ -1,7 +1,7 @@
-import { Checkbox } from 'antd';
+import { Checkbox, Tooltip } from 'antd';
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import axios from "axios";
-import { useState } from "react";
+import {  useState } from "react";
 import moment from 'moment';
 import { useQuery } from "@tanstack/react-query";
 import ModalCompopnent from "./modal";
@@ -92,7 +92,11 @@ function Dashboard() {
                                 <p className={`text-[15px] md:text-[20px] font-[400] md:font-[500] ${item.status == 'active' ? 'text-[#000]' : 'text-[#999] line-through'}`}>{item.name}</p>
                             </td>
                             <td className={`text-[15px] md:text-[17px] font-[400] md:font-[600]  py-[10px] ${item.status == 'active' ? 'text-[#000]' : 'text-[#999]'}`}>{item.email}</td>
-                            <td className={`text-[15px] md:text-[17px] font-[400] md:font-[600] py-[10px] ${item.status == 'active' ? 'text-[#000]' : 'text-[#999]'} `}> {moment(item.last_login).fromNow()}</td>
+                            <td className={`text-[15px] md:text-[17px] font-[400] md:font-[600] py-[10px] ${item.status == 'active' ? 'text-[#000]' : 'text-[#999]'} `}>
+                                <Tooltip placement="bottom" className='cursor-pointer' title={moment(item.last_login).format('MMMM D, YYYY HH:mm:ss')}  >
+                                    {moment(item.last_login).fromNow()}
+                                </Tooltip>
+                            </td>
                         </tr>
                     ))}
                     {!users?.length && (
